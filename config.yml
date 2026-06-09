@@ -1,0 +1,178 @@
+# ─────────────────────────────────────────────────────────────
+# Decap CMS — Chuckles Studio
+# Docs: https://decapcms.org/docs/
+# ─────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  # ⚠ Replace with your GitHub username/repo before publishing
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+  branch: main
+  # PKCE flow — no server-side OAuth proxy required.
+  # Requires a GitHub OAuth App. See README for setup steps.
+  auth_type: pkce
+  # ⚠ Replace with your GitHub OAuth App's Client ID
+  app_id: YOUR_GITHUB_OAUTH_APP_CLIENT_ID
+
+# Uncomment the line below to use a local proxy server during development.
+# Run: npx decap-server   (in the artifacts/chuckles directory)
+# local_backend: true
+
+# ── Media ──────────────────────────────────────────────────────
+media_folder: artifacts/chuckles/public/images
+public_folder: /images
+
+# ── Collections ────────────────────────────────────────────────
+collections:
+
+  # ── Thinking (essays) ────────────────────────────────────────
+  - name: thinking
+    label: Thinking
+    label_singular: Essay
+    folder: artifacts/chuckles/content/thinking
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: mdx
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} — {{date}}"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+
+      - name: slug
+        label: Slug
+        widget: string
+        hint: "Lowercase, hyphen-separated. Must match the filename exactly (e.g. on-visual-grammar)."
+
+      - name: date
+        label: Date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "MMMM D, YYYY"
+        time_format: false
+        required: false
+
+      - name: tag
+        label: Tag
+        widget: string
+        required: false
+        hint: 'Category label shown on the listing. e.g. "Identity · Craft"'
+
+      - name: preview
+        label: Preview
+        widget: text
+        required: false
+        hint: "One or two sentences shown on the listing page and as the sub-headline on the essay."
+
+      - name: body
+        label: Body
+        widget: markdown
+
+  # ── Practice ─────────────────────────────────────────────────
+  - name: practice
+    label: Practice
+    label_singular: Entry
+    folder: artifacts/chuckles/content/practice
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: mdx
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} — {{date}}"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+
+      - name: slug
+        label: Slug
+        widget: string
+        hint: "Lowercase, hyphen-separated. Must match the filename exactly (e.g. painting-04)."
+
+      - name: date
+        label: Date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "MMMM D, YYYY"
+        time_format: false
+        required: false
+
+      - name: medium
+        label: Medium
+        widget: string
+        required: false
+        hint: 'e.g. "Oil on linen"'
+
+      - name: dimensions
+        label: Dimensions
+        widget: string
+        required: false
+        hint: 'e.g. "40 × 50 cm"'
+
+      - name: tagline
+        label: Tagline
+        widget: string
+        required: false
+        hint: "One line — what you were looking for, or what you found."
+
+      - name: body
+        label: Body
+        widget: markdown
+
+  # ── Projects ─────────────────────────────────────────────────
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: artifacts/chuckles/content/projects
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: mdx
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} — {{year}}"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+
+      - name: slug
+        label: Slug
+        widget: string
+        hint: "Lowercase, hyphen-separated. Must match the filename exactly (e.g. mooi-identity). Note: lavou is a custom page — do not create a projects/lavou entry."
+
+      - name: year
+        label: Year
+        widget: string
+        required: false
+        hint: 'e.g. "2026"'
+
+      - name: scope
+        label: Scope
+        widget: string
+        required: false
+        hint: 'e.g. "Brand Identity, Print"'
+
+      - name: tagline
+        label: Tagline
+        widget: string
+        required: false
+        hint: "One sentence that captures the spirit of the work."
+
+      - name: deliverables
+        label: Deliverables
+        widget: list
+        required: false
+        hint: "Each line is one deliverable (e.g. Logo system, Brand guidelines)."
+        field:
+          name: item
+          label: Item
+          widget: string
+
+      - name: body
+        label: Body
+        widget: markdown
